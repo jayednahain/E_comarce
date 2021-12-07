@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Hellow class Based list</h1>
+    {#    {'paginator': None, 'page_obj': None, 'is_paginated': False, 'object_list': <QuerySet [<Porduct: t-shirt>]>, 'porduct_list': <QuerySet [<Porduct: t-shirt>]>, 'view': <product.views.class_based_view.ProductlistView object at 0x03BDD808>}#}
+    <hr>
+    <h2> Class based view defult details</h2>
+    {{ object_list }}<br>
+    {{ paginator }}<br>
+    {{ page_obj }}<br>
+    {{ is_paginated }}
+    <hr>
+    <h2>object data using loop</h2>
+    {% for object in object_list %}
+        {{ object.title }}<br>
+    {% endfor %}
+{% endblock %}

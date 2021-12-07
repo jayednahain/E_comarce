@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <h1 class="text_color">Hellow class Based list</h1>
+    <hr>
+    <hr>
+    <h2> Class based view defult details</h2>
+    {{ object_list }}<br>
+    {{ paginator }}<br>
+    {{ page_obj }}<br>
+    {{ is_paginated }}
+    <hr>
+
+    <div class="container">
+        <div class="row">
+            {% for object in object_list %}
+                <div class="col">
+                    {% include 'products/cards.html' with instance=object %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
