@@ -1,6 +1,6 @@
 from django.db import models
 from product.Utilities.media_path_converter import upload_image_path
-
+from django.urls import reverse
 
 from product.custom_manage import Product_manager
 # Create your models here.
@@ -27,4 +27,5 @@ class Porduct(models.Model):
 
    #12
    def get_absolute_url(self):
-      return 'detail/{slug}/'.format(slug=self.slug)
+      #return 'detail/{slug}/'.format(slug=self.slug)
+      return reverse('product:product_detail_link',kwargs={"slug":self.slug})

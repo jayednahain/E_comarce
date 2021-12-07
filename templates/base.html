@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello, world!</title>
       {% include 'Base/css.html' %}
+      {% include 'Base/navBar.html'%}
   </head>
   <body>
-  {% include 'Base/navBar.html' with brand_name="Ecomarce site Navbar" %}
+
   {% block body %}{% endblock %}
 
     {% include 'Base/js.html' %}
