@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.generic import ListView,DetailView,TemplateView
 from product.models import Porduct
 # Create your views here.
+from django.db.models import Q
+
+
 
 
 class SearchProductView(ListView):
@@ -9,11 +12,9 @@ class SearchProductView(ListView):
 
    def get_context_data(self, *args, object_list=None, **kwargs):
       context = super(SearchProductView, self).get_context_data(*args,**kwargs)
-
-      search_data = self.request.GET.get('q',None)
+      query = self.request.GET.get('q',None)
       #for se the result we just use {{ query }}
-      context['query'] = search_data
-
+      context['query'] = query
       return context
 
 
@@ -27,7 +28,6 @@ class SearchProductView(ListView):
       print(query)
 
       if query is not None:
-         return Porduct.objects.filter(title__icontains=query)
-
+         return Porduct.objects.get_search_items(query)
       return Porduct.objects.get_featured_items() # there is no search items it will return only featured items
 

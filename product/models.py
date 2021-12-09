@@ -7,15 +7,11 @@ from product.custom_manage import Product_manager
 class Porduct(models.Model):
    title          = models.CharField(max_length=120)
    description    = models.TextField()
-   #12
    slug           = models.SlugField(blank=True,unique=True)
-   #12
-
-   featured         = models.BooleanField(default=True)
+   featured       = models.BooleanField(default=True)
    price          = models.DecimalField(decimal_places=2,max_digits=20,default=00.00)
-   #date = models.DateTimeField(auto_now_add=True)
-   product_image = models.ImageField(upload_to=upload_image_path,null=True,blank=False)
-
+   product_image  = models.ImageField(upload_to=upload_image_path,null=True,blank=False)
+   active_prduct  = models.BooleanField(default=True)
 
    #custom object
    objects = Product_manager()
