@@ -17,10 +17,10 @@ class ProductDetailSLUGview(DetailView):
       slug = self.kwargs.get('slug')
 
       try:
-         instance = Porduct.objects.get(slug=slug,active=True)
+         instance = Porduct.objects.get(slug=slug,featured=True)
       except Porduct.DoesNotExist:
          raise Http404('Custom error ! no product found')
       except Porduct.MultipleObjectsReturned:
-         query_set = Porduct.objects.filter(slug=slug,active=True)
+         query_set = Porduct.objects.filter(slug=slug,featured=True)
          instance = query_set.first()
       return instance

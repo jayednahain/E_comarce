@@ -19,15 +19,19 @@ class Detail(DetailView):
       #context['view_brand_name'] = 'Ecomarce site from view'
       print(context)
       return context
+
    def get_object(self, *args,**kwargs):
       request = self.request
       slug = self.kwargs.get('slug')
 
+
+      """all the slug field are unique if same name in multiple filed"""
       try:
-         instance = Porduct.objects.get(slug=slug,active=True)
+         instance = Porduct.objects.get(slug=slug)
+         #instance = Porduct.objects.get_by_id(pk)
       except Porduct.DoesNotExist:
          raise Http404('Custom error ! no product found')
       except Porduct.MultipleObjectsReturned:
-         query_set = Porduct.objects.filter(slug=slug,active=True)
+         query_set = Porduct.objects.filter(slug=slug)
          instance = query_set.first()
       return instance

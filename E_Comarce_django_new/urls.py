@@ -5,8 +5,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('',include('User.urls')),
     path('admin/', admin.site.urls),
-    path('product/',include(('product.urls','product'),namespace='product'))
+    path('product/',include(('product.urls','product'),namespace='product')),
+    path('search/',include(('search.urls','search'),namespace='search'))
+
 ]
 
 #if debug == True

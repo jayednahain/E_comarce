@@ -10,7 +10,8 @@ class Porduct(models.Model):
    #12
    slug           = models.SlugField(blank=True,unique=True)
    #12
-   active         = models.BooleanField(default=True)
+
+   featured         = models.BooleanField(default=True)
    price          = models.DecimalField(decimal_places=2,max_digits=20,default=00.00)
    #date = models.DateTimeField(auto_now_add=True)
    product_image = models.ImageField(upload_to=upload_image_path,null=True,blank=False)
