@@ -8,7 +8,8 @@ urlpatterns = [
     path('',include('User.urls')),
     path('admin/', admin.site.urls),
     path('product/',include(('product.urls','product'),namespace='product')),
-    path('search/',include(('search.urls','search'),namespace='search'))
+    path('search/',include(('search.urls','search'),namespace='search')),
+    path('test/',include('Tags.urls'))
 
 ]
 

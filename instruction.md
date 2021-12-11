@@ -11,7 +11,11 @@
 14. Reuseable Search bar
     using include tag
     
-15.
+15. Using tag model for using advance search
+    .on tag model product will add as ManyToMany Field
+    .For using manytomany we can add multiple product in same title
+    .
+    
      
 -
 

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="border border-dark p-3">
+            <h1>Forward search ManayToMany Tag > product</h1>
+            <hr>
+            <h3>tag object</h3>
+            {{ tag_object }}
+            <hr>
+            <h3>Instance Tag name</h3>
+            {{ tag_instace.title }}
+            <hr>
+            <h3>Getting product list From tag model (data inside this tag)</h3>
+            <h4>using loop</h4>
+            {% for data in product_list %}
+                <p>{{ data.title }}</p>
+            {% endfor %}
+            <hr>
+            <h4>Product instance</h4>
+            {{ product_instance.title }}
+        </div>
+        <hr>
+        <div class="border border-dark p-3">
+            <h1>Reverse search ManayToMany</h1>
+            {{ product_object }}
+            <hr>
+            <h1>Product instance</h1>
+            {{ product_table_instance }}
+            <hr>
+            <h1>product tag</h1>
+        </div>
+
+
+
+
+    </div>
+
+{% endblock %}

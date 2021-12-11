@@ -4,7 +4,8 @@ from product.models import Porduct
 # Create your views here.
 from django.db.models import Q
 
-
+# def test(request):
+#    Porduct.objects.filter(tag__title__icontains=)
 
 
 class SearchProductView(ListView):

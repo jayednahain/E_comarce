@@ -25,7 +25,8 @@ class ProductQuerySet(models.query.QuerySet):
    def search_data(self, query):
       DB_QUERY = Q(title__icontains=query) | \
                  Q(description__icontains=query)|\
-                 Q(price__icontains=query)
+                 Q(price__icontains=query)|\
+                 Q(tag__title__icontains=query)
       return self.filter(DB_QUERY).distinct()
 
 
