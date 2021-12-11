@@ -10,6 +10,8 @@ urlpatterns = [
     path('product/',include(('product.urls','product'),namespace='product')),
     path('search/',include(('search.urls','search'),namespace='search')),
     path('chart',include(('shopping_Cart.urls','shopping_Cart'),namespace='shopping_Cart')),
+
+
     path('test/',include('Tags.urls'))
 
 ]
