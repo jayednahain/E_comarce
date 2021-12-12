@@ -41,9 +41,9 @@ def chart(request):
 
       #if that cart is exist without any user!,
       #if will update the user
-      # if request.user.is_authenticated and cart_obj.user is None:
-      #    cart_obj.user = request.user
-      #    cart_obj.save()
+      if request.user.is_authenticated and cart_obj.user is None:
+         cart_obj.user = request.user
+         cart_obj.save()
    else:
       print(request.user)
       cart_obj = Cart.objects.new_cart(user=request.user)
