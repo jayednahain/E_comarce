@@ -9,6 +9,9 @@ User = settings.AUTH_USER_MODEL
 
 
 class CartManager(models.Manager):
+
+   #7
+   #cart
    def new_or_get(self,request):
       cart_id = request.session.get("cart_id", None)
       qs = self.get_queryset().filter(id=cart_id)
@@ -37,6 +40,7 @@ class Cart(models.Model):
    user         = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
    product      = models.ManyToManyField(Porduct,blank=True) #one user can multiple product in chart
    total        = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
+   sub_total    = models.DecimalField(default=0.00,max_digits=100,decimal_places=2)
    updated      = models.DateTimeField(auto_now=True)
    created_time = models.DateTimeField(auto_now_add=True)
    objects      = CartManager()

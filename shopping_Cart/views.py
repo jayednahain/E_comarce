@@ -33,20 +33,4 @@ Case One:
 
 def chart(request):
    cart_obj = Cart.objects.new_or_get(request)
-   # request.session['cart_id']="12"
-   # cart_id = request.session.get('cart_id', None)
-   # query_set = Cart.objects.filter(id=cart_id)
-   # if query_set.count() == 1:
-   #    print("this cart already exists")
-   #    cart_obj = query_set.first()
-   #
-   #    #if that cart is exist without any user!,
-   #    #if will update the user
-   #    if request.user.is_authenticated and cart_obj.user is None:
-   #       cart_obj.user = request.user
-   #       cart_obj.save()
-   # else:
-   #    print(request.user)
-   #    cart_obj = Cart.objects.new_cart(user=request.user)
-   #    request.session['cart_id'] = cart_obj.id
    return render(request, 'chart.html')
