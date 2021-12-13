@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block body %}
-    <h1>Class Based Detail view</h1>
-    <hr>
-    <h3>Product detail Function based view</h3>
-    {{ object.title }}
+    <div class="container">
+    <div class="row">
+        <div class="col-8 border">
+            <h4>Product detail Function based view</h4>
+            <h1>{{ object.title }}</h1>
+        </div>
+        <div class="col-4 border">
+            {% include 'shoopting_cart/add_or_remove_product_form.html' with product=object cart_data=cart_data %}
+        </div>
+    </div>
+    </div>
+
+
 {% endblock %}

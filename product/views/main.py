@@ -1,6 +1,7 @@
 from django.http import Http404
 from django.views.generic import ListView,DetailView,TemplateView
 from product.models import Porduct
+from shopping_Cart.models import Cart
 
 
 
@@ -14,10 +15,16 @@ class List(ListView):
 class Detail(DetailView):
    queryset = Porduct.objects.all()
    template_name = 'main/detail.html'
+
    def get_context_data(self, *args, object_list=None, **kwargs):
       context = super(Detail, self).get_context_data(*args,**kwargs)
-      #context['view_brand_name'] = 'Ecomarce site from view'
-      print(context)
+
+      """cart functionality for verifying 
+      this product is in chart or not"""
+      request = self.request
+      cart_obj, new_obj = Cart.objects.new_or_get(request)
+      context['cart_data'] = cart_obj.product.all()
+      #print(context)
       return context
 
    def get_object(self, *args,**kwargs):
@@ -25,7 +32,10 @@ class Detail(DetailView):
       slug = self.kwargs.get('slug')
 
 
-      """all the slug field are unique if same name in multiple filed"""
+      """all the slug field are unique 
+      it the slug field is same it always return
+      the first item.
+      """
       try:
          instance = Porduct.objects.get(slug=slug)
          #instance = Porduct.objects.get_by_id(pk)

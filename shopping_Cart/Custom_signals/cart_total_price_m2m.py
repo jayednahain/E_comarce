@@ -12,10 +12,6 @@ def cart_sub_total_price_m2m_revier(sender,instance,action,*args,**kwargs):
       total_price = 0
       for x in cart_product:
          total_price = total_price + x.price
-      print(total_price)
       if instance.sub_total != total_price:
          instance.sub_total = total_price
          instance.save()
-
-
-      print(cart_product)

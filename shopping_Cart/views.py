@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from shopping_Cart.models import Cart
-
+from product.models import Porduct
 # Create your views here.
 
 
@@ -32,5 +32,25 @@ Case One:
 
 
 def chart(request):
-   cart_obj = Cart.objects.new_or_get(request)
+   cart_obj,new_obj = Cart.objects.new_or_get(request)
    return render(request, 'chart.html')
+
+def update_cart(request):
+   #10
+   print("fuck you")
+   print(request.POST)
+   pro_id = request.POST.get('product_id',None)
+   #9
+   #update cart
+   #pro_id = 1
+   if pro_id is not None:
+      try:
+         product_obj = Porduct.objects.get(id = pro_id)
+         cart_obj, new_obj = Cart.objects.new_or_get(request)
+         if product_obj in cart_obj.product.all():
+            cart_obj.product.remove(product_obj)
+         else:
+            cart_obj.product.add(product_obj)
+      except Porduct.DoesNotExist:
+         return redirect('shopping_Cart:chart_home_link')
+   return redirect('shopping_Cart:chart_home_link')
