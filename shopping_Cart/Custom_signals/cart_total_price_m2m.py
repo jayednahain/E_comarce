@@ -4,7 +4,7 @@ from shopping_Cart.models import Cart
 
 
 @receiver(m2m_changed, sender=Cart.product.through)
-def cart_m2m_total_price_revier(sender,instance,action,*args,**kwargs):
+def cart_sub_total_price_m2m_revier(sender,instance,action,*args,**kwargs):
    if action == 'pre_remove' or action == 'post_add' or action == 'post_clear':
       print(action)
       # geting all the selected price product
@@ -13,6 +13,9 @@ def cart_m2m_total_price_revier(sender,instance,action,*args,**kwargs):
       for x in cart_product:
          total_price = total_price + x.price
       print(total_price)
+      if instance.sub_total != total_price:
+         instance.sub_total = total_price
+         instance.save()
 
 
       print(cart_product)
