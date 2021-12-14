@@ -4,6 +4,7 @@
 {% url 'login_link' as log_in_url %}
 {% url 'product:product_list_link' as product_list_url %}
 {% url 'contact_link' as contact_url %}
+{% url 'shopping_Cart:chart_home_link' as cart_url %}
 
 
 <div class="m-2">
@@ -34,6 +35,9 @@
                         <a class="nav-link {% if request.path == log_in_url %}active{% endif %}" href="{{ log_in_url }}">log in</a>
                       </li>
                     {% endif %}
+                        <li class="nav-item">
+                        <a class="nav-link {% if request.path == cart_url %}active{% endif %}" href="{{ cart_url }}">Cart {{ request.session.total_cart_product }}</a>
+                      </li>
                 </ul>
 
           </div>

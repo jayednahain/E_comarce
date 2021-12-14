@@ -54,6 +54,7 @@ def update_cart(request):
             cart_obj.product.remove(product_obj)
          else:
             cart_obj.product.add(product_obj)
+         request.session['total_cart_product']=cart_obj.product.count()
       except Porduct.DoesNotExist:
          print('product dose not exist')
          return redirect('shopping_Cart:chart_home_link')
