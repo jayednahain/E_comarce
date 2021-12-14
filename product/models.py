@@ -12,6 +12,7 @@ class Porduct(models.Model):
    price          = models.DecimalField(decimal_places=2,max_digits=20,default=00.00)
    product_image  = models.ImageField(upload_to=upload_image_path,null=True,blank=False)
    active_prduct  = models.BooleanField(default=True)
+   #created_date   = models.DateTimeField()
 
    #custom object
    objects = Product_manager()

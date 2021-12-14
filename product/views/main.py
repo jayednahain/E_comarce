@@ -23,7 +23,7 @@ class Detail(DetailView):
       this product is in chart or not"""
       request = self.request
       cart_obj, new_obj = Cart.objects.new_or_get(request)
-      context['cart_data'] = cart_obj.product.all()
+      context['cart'] = cart_obj.product.all()
       #print(context)
       return context
 

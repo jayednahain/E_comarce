@@ -16,7 +16,6 @@ Case One:
       8. finally adding the current cart_id as a session id
       
    code::
-   
    def chart(request):
       cart_id = request.session.get('cart_id', None)
       query_set = Cart.objects.filter(id=cart_id)
@@ -33,7 +32,11 @@ Case One:
 
 def chart(request):
    cart_obj,new_obj = Cart.objects.new_or_get(request)
-   return render(request, 'chart.html')
+
+   context = {
+      'cart':cart_obj
+   }
+   return render(request, 'chart.html',context)
 
 def update_cart(request):
    #10
@@ -52,5 +55,6 @@ def update_cart(request):
          else:
             cart_obj.product.add(product_obj)
       except Porduct.DoesNotExist:
+         print('product dose not exist')
          return redirect('shopping_Cart:chart_home_link')
    return redirect('shopping_Cart:chart_home_link')

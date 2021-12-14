@@ -1,8 +1,53 @@
 {% extends 'base.html' %}
 
 {% block body %}
+
     <div class="border container">
-        <h1>Shooping Chart</h1>
+    <h1>Shooping Chart</h1>
     <hr>
+    {% if cart.product.exists %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Product Name</th>
+              <th scope="col">Product Price</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for product_data in cart.product.all %}
+              <tr>
+                  <th scope="row">{{ forloop.counter }}</th>
+                  <td>
+                      <div class="row">
+                          <div class="col">
+                              {{ product_data.title }}
+                          </div>
+                          <div class="col">
+                              {% include 'shoopting_cart/add_or_remove_product_form.html' with product=product_data cart=cart %}
+{#                              {% if product_data in cart.product.all %}#}
+{#                                <form action="{% url "shopping_Cart:update_cart_link" %}" method="POST">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input type="" value="{{ product_data.id }}" name="product_id">#}
+{#                                    <button type="submit" class="btn btn-warning">remove</button>#}
+{#                                </form>#}
+{#                              {% endif %}#}
+                          </div>
+                      </div>
+                  </td>
+                  <td>{{ product_data.price }}</td>
+              </tr>
+          {% endfor %}
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Sub total: {{ cart.sub_total }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total : {{ cart.total }}</td>
+                </tr>
+          </tbody>
+        </table>
+    {% endif %}
     </div>
 {% endblock %}

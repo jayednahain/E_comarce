@@ -4,13 +4,14 @@
 
 {% block body %}
     <div class="container">
+    {{ cart }}
     <div class="row">
         <div class="col-8 border">
             <h4>Product detail Function based view</h4>
             <h1>{{ object.title }}</h1>
         </div>
         <div class="col-4 border">
-            {% include 'shoopting_cart/add_or_remove_product_form.html' with product=object cart_data=cart_data %}
+            {% include 'shoopting_cart/add_or_remove_product_form.html' with product=object cart=cart %}
         </div>
     </div>
     </div>
