@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'User',
     'search',
     'Tags',
-    'shopping_Cart'
+    'shopping_Cart',
+    'Order_product'
 ]
 
 MIDDLEWARE = [
@@ -121,6 +122,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOGOUT_REDIRECT_URL = 'login_link'
+
 
 
 # Static files (CSS, JavaScript, Images)

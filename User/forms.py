@@ -89,14 +89,11 @@ class ContactForm(forms.Form):
    def clean_email(self):
       email = self.cleaned_data.get('email')
       print("custom validation for email RUN !!!")
-
       if not "@gmail.com" in email:
          raise forms.ValidationError("Email has to be gmail")
-
       return email
 
    def clean_content(self):
-
       print("content validation run")
       content = self.cleaned_data.get('content')
       print(len(content))

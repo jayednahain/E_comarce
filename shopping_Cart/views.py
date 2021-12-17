@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from shopping_Cart.models import Cart
 from product.models import Porduct
+from Order_product.models import Order
 # Create your views here.
 
 
@@ -40,8 +41,6 @@ def chart(request):
 
 def update_cart(request):
    #10
-   print("fuck you")
-   print(request.POST)
    pro_id = request.POST.get('product_id',None)
    #9
    #update cart
@@ -59,3 +58,14 @@ def update_cart(request):
          print('product dose not exist')
          return redirect('shopping_Cart:chart_home_link')
    return redirect('shopping_Cart:chart_home_link')
+
+def check_out_view(request):
+   cart_obj,new_obj = Cart.objects.new_or_get(request)
+   order_obj = None
+
+   if new_obj or cart_obj.product.count()==1:
+      return redirect('shopping_Cart:chart_home_link')
+   else:
+      order_obj,new_order_obj = Order.objects.get_or_create(cart=cart_obj)
+   return render(request,'check_out_process.html',{'object':order_obj})
+

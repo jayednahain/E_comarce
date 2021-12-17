@@ -2,6 +2,7 @@
 {% url 'home_page_link' as home_url %}
 {% url 'registation_page_link' as reg_url %}
 {% url 'login_link' as log_in_url %}
+{% url 'logout_link' as log_out_url %}
 {% url 'product:product_list_link' as product_list_url %}
 {% url 'contact_link' as contact_url %}
 {% url 'shopping_Cart:chart_home_link' as cart_url %}
@@ -20,12 +21,16 @@
                       <li class="nav-item">
                         <a class="nav-link {% if request.path == home_url %}active{% endif %}" href="{{ home_url }}">Home</a>
                       </li>
-                    {% if request.user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == product_list_url %}active{% endif %}" href="{{ product_list_url }}">Product</a>
                       </li>
+                    {% if request.user.is_authenticated %}
+
                         <li class="nav-item">
                         <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{{ contact_url }}">Contact</a>
+                      </li>
+                        <li class="nav-item">
+                        <a class="nav-link {% if request.path == log_out_url %}active{% endif %}" href="{{ log_out_url }}">log out</a>
                       </li>
                     {% else %}
                         <li class="nav-item">

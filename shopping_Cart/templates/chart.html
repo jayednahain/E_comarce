@@ -25,13 +25,6 @@
                           </div>
                           <div class="col">
                               {% include 'shoopting_cart/add_or_remove_product_form.html' with product=product_data cart=cart %}
-{#                              {% if product_data in cart.product.all %}#}
-{#                                <form action="{% url "shopping_Cart:update_cart_link" %}" method="POST">#}
-{#                                    {% csrf_token %}#}
-{#                                    <input type="" value="{{ product_data.id }}" name="product_id">#}
-{#                                    <button type="submit" class="btn btn-warning">remove</button>#}
-{#                                </form>#}
-{#                              {% endif %}#}
                           </div>
                       </div>
                   </td>
@@ -46,8 +39,16 @@
                     <td colspan="2"></td>
                     <td>Total : {{ cart.total }}</td>
                 </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>
+                        <a class="btn btn-dark" href="{% url 'shopping_Cart:check_out_link' %}">check out product</a>
+                    </td>
+                </tr>
           </tbody>
         </table>
+    {% else %}
+        <h1>shoppting cart is empty</h1>
     {% endif %}
     </div>
 {% endblock %}

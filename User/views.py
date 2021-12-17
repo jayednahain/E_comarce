@@ -6,14 +6,16 @@ from User.custom_forms.RegisterForm import RegisterForm
 from User.custom_forms.ContactForm import ContactForm
 from django.contrib.auth import authenticate, login, get_user_model
 
+#8.8
+# urls
+from django.utils.http import is_safe_url
+
 
 # Create your views here.
 
 
-
-
 def home_page(request):
-    return render(request,'home.html')
+   return render(request, 'home.html')
 
 
 def login_page(request):
@@ -21,33 +23,34 @@ def login_page(request):
    context = {
       'form': form
    }
-   print("user is trying to log in")
 
+   #url
+   #8.8
+   next_ = request.GET.get('next')
+   next_post = request.GET.get('next')
+   redirect_path = next_ or next_post or None
    if form.is_valid():
       print(form.cleaned_data)
-
-      #geting user data
       username = form.cleaned_data.get('username')
       password = form.cleaned_data.get('password')
-      #passing data through authenticate function
-      user = authenticate(request,username=username,password=password)
-
+      user = authenticate(request, username=username, password=password)
       if user is not None:
-         print('log in success full')
-         login(request,user)
-         #after login success page
+         login(request, user)
          context['form'] = LoginForm()
-         return redirect('home_page_link')
+         if is_safe_url(redirect_path,request.get_host()):
+            return redirect(redirect_path)
+         else:
+            return redirect('home_page_link')
       else:
          print("error in log in")
 
-
-   return render(request,'log_in.html',context)
-
+   return render(request, 'log_in.html', context)
 
 
 User = get_user_model()
-#get user model will help us for creating new user
+
+
+# get user model will help us for creating new user
 def register_page(request):
    form = RegisterForm(request.POST or None)
 
@@ -55,18 +58,18 @@ def register_page(request):
       'form': form
    }
 
-   #here we just saveing the data
+   # here we just saveing the data
 
    if form.is_valid():
       print(form.cleaned_data)
 
       username = form.cleaned_data.get("username")
-      email    = form.cleaned_data.get("email")
+      email = form.cleaned_data.get("email")
       password = form.cleaned_data.get("password")
 
-      new_user= User.objects.create_user(username,email,password)
+      new_user = User.objects.create_user(username, email, password)
       print(new_user)
-   return render(request,'registration.html',context)
+   return render(request, 'registration.html', context)
 
 
 def contact_django_form(request):
