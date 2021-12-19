@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'search',
     'Tags',
     'shopping_Cart',
-    'Order_product'
+    'Order_product',
+    'billing_profile'
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,8 @@ LOGOUT_REDIRECT_URL = 'login_link'
 STATIC_URL = '/static/'
 STATICFILES_DIR = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [STATICFILES_DIR]
+
+
 
 
 

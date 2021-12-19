@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from shopping_Cart.models import Cart
 from product.models import Porduct
 from Order_product.models import Order
+from User.custom_forms.LoginForm import LoginForm
+from billing_profile.models import Billing_Profile
 # Create your views here.
 
 
@@ -33,7 +35,6 @@ Case One:
 
 def chart(request):
    cart_obj,new_obj = Cart.objects.new_or_get(request)
-
    context = {
       'cart':cart_obj
    }
@@ -60,12 +61,28 @@ def update_cart(request):
    return redirect('shopping_Cart:chart_home_link')
 
 def check_out_view(request):
+   form = LoginForm(request.POST or None)
    cart_obj,new_obj = Cart.objects.new_or_get(request)
    order_obj = None
-
    if new_obj or cart_obj.product.count()==1:
       return redirect('shopping_Cart:chart_home_link')
    else:
       order_obj,new_order_obj = Order.objects.get_or_create(cart=cart_obj)
-   return render(request,'check_out_process.html',{'object':order_obj})
+
+   """billing Profile"""
+   form = LoginForm(request.POST or None)
+   billing_profile_data = None
+   user = request.user
+   if user.is_authenticated:
+      billing_profile_data,billing_profile_data_created = Billing_Profile.objects.get_or_create(
+         user=user,email=user.email
+      )
+
+
+   context = {
+      'object': order_obj,
+      'billing_profile_data':billing_profile_data,
+      'log_in_form':form
+   }
+   return render(request,'check_out_process.html',context)
 

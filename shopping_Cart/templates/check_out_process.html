@@ -2,10 +2,27 @@
 
 {% block body %}
 <div class="container">
+{% if not billing_profile_data %}
+    <div class="row">
+    <h2 class="text-center"> Billing Profile</h2>
+        <div class="col border">
+            <h1>log in as User</h1>
+{#            {{ request.build_absolute_uri }}                        #sending currnet url data to backend#}
+            {% include 'User/login_form.html' with form=log_in_form next_url=request.build_absolute_uri  %}
+        </div>
+        <div class="col">
+            <h1>log in as gust</h1>
+        </div>
+    </div>
+
+
+{% else %}
     <h3>check out</h3>
     <p>Cart total: {{ object.cart.total }}</p>
     <p>Shipping total: {{ object.shippting_total }}</p>
     <p>Order total: {{ object.total }}</p>
+{% endif %}
+
 
 </div>
 {% endblock %}

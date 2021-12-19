@@ -26,11 +26,13 @@ def login_page(request):
 
    #url
    #8.8
-   next_ = request.GET.get('next')
-   next_post = request.GET.get('next')
-   redirect_path = next_ or next_post or None
+   #log in form any where and redirect current page!
+   next_get_request = request.GET.get('next')
+   next_post_request = request.POST.get('next')
+   redirect_path = next_get_request or next_post_request or None
+
+
    if form.is_valid():
-      print(form.cleaned_data)
       username = form.cleaned_data.get('username')
       password = form.cleaned_data.get('password')
       user = authenticate(request, username=username, password=password)
@@ -38,6 +40,7 @@ def login_page(request):
          login(request, user)
          context['form'] = LoginForm()
          if is_safe_url(redirect_path,request.get_host()):
+            print("short log in run!")
             return redirect(redirect_path)
          else:
             return redirect('home_page_link')
@@ -53,22 +56,14 @@ User = get_user_model()
 # get user model will help us for creating new user
 def register_page(request):
    form = RegisterForm(request.POST or None)
-
    context = {
       'form': form
    }
-
-   # here we just saveing the data
-
    if form.is_valid():
-      print(form.cleaned_data)
-
       username = form.cleaned_data.get("username")
       email = form.cleaned_data.get("email")
       password = form.cleaned_data.get("password")
-
       new_user = User.objects.create_user(username, email, password)
-      print(new_user)
    return render(request, 'registration.html', context)
 
 

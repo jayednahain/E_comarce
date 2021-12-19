@@ -12,26 +12,25 @@ class RegisterForm(forms.Form):
    #check user name is alrady exist or not
    def clean_username(self):
       username = self.cleaned_data.get('username')
-      print(username)
       qs = User.objects.filter(username=username)
 
       if qs.exists():
          raise forms.ValidationError('User name is alrady taken')
 
       return username
-
-   #checking email already have or not
-   def clean_email(self):
-      username = self.cleaned_data.get('username')
-      print(username)
-      qs = User.objects.filter(username=username)
-
-      if qs.exists():
-         raise forms.ValidationError('User email is already taken')
-
-      return username
-
-   #two password matchi8ng confermation
+   #
+   # #checking email already have or not
+   # def clean_email(self):
+   #    username = self.cleaned_data.get('email')
+   #    print(username)
+   #    qs = User.objects.filter(username=username)
+   #
+   #    if qs.exists():
+   #       raise forms.ValidationError('User email is already taken')
+   #
+   #    return username
+   #
+   # #two password matchi8ng confermation
    def clean(self):
       data = self.cleaned_data
       password = self.cleaned_data.get('password')

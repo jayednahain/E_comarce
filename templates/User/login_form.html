@@ -1,0 +1,10 @@
+{% load static %}
+
+<form method="POST" action="{% url 'login_link' %}">
+    {% if next_url %}
+        <input type="hidden" name="next" value="{{ next_url }}">
+    {% endif %} 
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button class="btn btn-dark">submit</button>
+</form>
