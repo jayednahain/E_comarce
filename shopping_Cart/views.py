@@ -6,11 +6,11 @@ from product.models import Porduct
 from Order_product.models import Order
 from billing_profile.models import Billing_Profile
 from Gust_user.models import GustUser
-
-
 #form
 from User.custom_forms.LoginForm import LoginForm
 from Gust_user.forms import GustUserForm
+
+
 # Create your views here.
 
 
@@ -74,34 +74,16 @@ def check_out_view(request):
    order_obj = None
    if new_obj or cart_obj.product.count() == 0:
       return redirect('shopping_Cart:chart_home_link')
-   # else:
-   #    order_obj,new_order_obj = Order.objects.get_or_create(cart=cart_obj)
 
    """billing Profile"""
-   billing_profile = None
-   user = request.user
+
    log_in_form = LoginForm(request.POST or None)
    gust_user_form = GustUserForm(request.POST or None)
-   gust_user_id = request.session.get('gust_user_id',None)
 
-
-   if user.is_authenticated:
-      """logged in user checkout"""
-
-      billing_profile,billing_profile_data_created = Billing_Profile.objects.get_or_create(
-         user=user,email=user.email
-      )
-      """gust user checkout"""
-   elif gust_user_id is not None:
-      gust_user_obj = GustUser.objects.get(id=gust_user_id)
-      billing_profile, billing_gust_profile_data_created = Billing_Profile.objects.get_or_create(
-         email=gust_user_obj.email
-      )
-   else:
-      pass
+   #14
+   billing_profile,billing_profile_data_created = Billing_Profile.objects.new_or_get_billing_profile(request)
 
    #12
-
    if billing_profile is not None:
       order_obj , order_obj_created = Order.objects.new_or_get_order(billing_profile,cart_obj)
 

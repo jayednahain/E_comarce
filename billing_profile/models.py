@@ -1,8 +1,15 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import User
 
-# Create your models here.
+#14
+#custom manager
+from billing_profile.Custom_manager.custom_manager import BillingProfileManager
+
+"""due to circular import"""
+
+
+
+
 
 
 class Billing_Profile(models.Model):
@@ -14,7 +21,8 @@ class Billing_Profile(models.Model):
 
    def __str__(self):
       return self.email
-
+   #14
+   objects     = BillingProfileManager()
 
 
 
