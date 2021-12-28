@@ -9,6 +9,10 @@ from Order_product.models import Order
 def product_order_id_pre_save(sender,instance,*args,**kwargs):
    if not instance.order_id:
       instance.order_id = Unique_order_id_generator(instance)
+   #13
+   qs = Order.objects.filter(cart=instance.cart).exclude(billing_profile=instance.billing_profile)
+   if qs.exists():
+      qs.update(active=False)
 
 
 

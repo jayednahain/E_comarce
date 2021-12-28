@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
+
 {% block body %}
 <div class="container">
-{% if not billing_profile_data %}
+{{ object.order_id }}-- {{ object.cart }}
+
+{% if not billing_profile %}
     <div class="row">
     <h2 class="text-center"> Billing Profile</h2>
         <div class="col border">
@@ -12,6 +15,8 @@
         </div>
         <div class="col">
             <h1>log in as gust</h1>
+            {% url 'gust_register_link' as gust_register_url %}
+            {% include 'Gust_user/Gust_user_form.html' with form=gust_user_form action_url=gust_register_url next_url=request.build_absolute_uri %}
         </div>
     </div>
 

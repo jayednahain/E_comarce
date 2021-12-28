@@ -16,7 +16,7 @@ urlpatterns = [
 
     #main
     #working with only class based views
-    path('list',List.as_view(),name='product_list_link'),
+    path('list/',List.as_view(),name='product_list_link'),
     path('detail/<str:slug>/',Detail.as_view(),name='product_detail_link'),
 
 

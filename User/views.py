@@ -1,9 +1,12 @@
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
+
+#form
 from User.custom_forms.LoginForm import LoginForm
 from User.custom_forms.RegisterForm import RegisterForm
 from User.custom_forms.ContactForm import ContactForm
+
 from django.contrib.auth import authenticate, login, get_user_model
 
 #8.8
@@ -16,6 +19,8 @@ from django.utils.http import is_safe_url
 
 def home_page(request):
    return render(request, 'home.html')
+
+
 
 
 def login_page(request):
@@ -38,6 +43,11 @@ def login_page(request):
       user = authenticate(request, username=username, password=password)
       if user is not None:
          login(request, user)
+         try:
+            #if gust user tries to log in
+            del request.session['gust_user_id']
+         except:
+            pass
          context['form'] = LoginForm()
          if is_safe_url(redirect_path,request.get_host()):
             print("short log in run!")

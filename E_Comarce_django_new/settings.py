@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'Tags',
     'shopping_Cart',
     'Order_product',
-    'billing_profile'
+    'billing_profile',
+    'Gust_user'
 ]
 
 MIDDLEWARE = [

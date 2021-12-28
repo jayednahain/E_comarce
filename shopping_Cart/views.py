@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect
+
+#database
 from shopping_Cart.models import Cart
 from product.models import Porduct
 from Order_product.models import Order
-from User.custom_forms.LoginForm import LoginForm
 from billing_profile.models import Billing_Profile
+from Gust_user.models import GustUser
+
+
+#form
+from User.custom_forms.LoginForm import LoginForm
+from Gust_user.forms import GustUserForm
 # Create your views here.
 
 
@@ -54,6 +61,7 @@ def update_cart(request):
             cart_obj.product.remove(product_obj)
          else:
             cart_obj.product.add(product_obj)
+         #nav bar cart count!
          request.session['total_cart_product']=cart_obj.product.count()
       except Porduct.DoesNotExist:
          print('product dose not exist')
@@ -61,28 +69,50 @@ def update_cart(request):
    return redirect('shopping_Cart:chart_home_link')
 
 def check_out_view(request):
-   form = LoginForm(request.POST or None)
+
    cart_obj,new_obj = Cart.objects.new_or_get(request)
    order_obj = None
-   if new_obj or cart_obj.product.count()==1:
+   if new_obj or cart_obj.product.count() == 0:
       return redirect('shopping_Cart:chart_home_link')
-   else:
-      order_obj,new_order_obj = Order.objects.get_or_create(cart=cart_obj)
+   # else:
+   #    order_obj,new_order_obj = Order.objects.get_or_create(cart=cart_obj)
 
    """billing Profile"""
-   form = LoginForm(request.POST or None)
-   billing_profile_data = None
+   billing_profile = None
    user = request.user
+   log_in_form = LoginForm(request.POST or None)
+   gust_user_form = GustUserForm(request.POST or None)
+   gust_user_id = request.session.get('gust_user_id',None)
+
+
    if user.is_authenticated:
-      billing_profile_data,billing_profile_data_created = Billing_Profile.objects.get_or_create(
+      """logged in user checkout"""
+
+      billing_profile,billing_profile_data_created = Billing_Profile.objects.get_or_create(
          user=user,email=user.email
       )
+      """gust user checkout"""
+   elif gust_user_id is not None:
+      gust_user_obj = GustUser.objects.get(id=gust_user_id)
+      billing_profile, billing_gust_profile_data_created = Billing_Profile.objects.get_or_create(
+         email=gust_user_obj.email
+      )
+   else:
+      pass
+
+   #12
+
+   if billing_profile is not None:
+      order_obj , order_obj_created = Order.objects.new_or_get_order(billing_profile,cart_obj)
 
 
-   context = {
+
+
+   context   = {
       'object': order_obj,
-      'billing_profile_data':billing_profile_data,
-      'log_in_form':form
+      'billing_profile':billing_profile,
+      'log_in_form':log_in_form,
+      'gust_user_form':gust_user_form
    }
    return render(request,'check_out_process.html',context)
 

@@ -15,19 +15,11 @@
     .on tag model product will add as ManyToMany Field
     .For using manytomany we can add multiple product in same title
 
---shoppting chart
-5. 
-    
-    
-     
--
+--payment system
+1.creating shopping chart
+2. chart will use for user and gust user
+3. clicking check_out Order will create
+4. if we are not logged in or as gust we must follow some credentials
+5. Gust must provide a email address for creating a order
+6. 
 
-
-using for navigations
->1. get_absulute url
->
->2. reverce url
->3. used namespace on app
->
-
-    
